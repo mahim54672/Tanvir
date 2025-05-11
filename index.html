@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Access Panel</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Anton', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    #accessBtn {
+      font-size: 2em;
+      padding: 15px 30px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 10px red;
+      transition: 0.3s;
+    }
+
+    #accessBtn:hover {
+      background-color: darkred;
+      box-shadow: 0 0 20px red;
+    }
+
+    #loadingBar {
+      width: 80%;
+      height: 30px;
+      border: 2px solid red;
+      margin-top: 30px;
+      display: none;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #progress {
+      height: 100%;
+      background-color: red;
+      width: 0%;
+      transition: width 0.5s;
+    }
+
+    .hacked {
+      display: none;
+      font-size: 4em;
+      color: red;
+      border: 6px solid red;
+      padding: 30px 60px;
+      margin-top: 30px;
+      transform: rotate(-8deg);
+      background-color: rgba(255, 0, 0, 0.05);
+      text-shadow: 2px 2px 0 #000, 0 0 10px red, 0 0 20px darkred;
+      box-shadow: 0 0 10px red, 0 0 30px darkred;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: rotate(-8deg) translate(0, 0); }
+      20% { transform: rotate(-8deg) translate(-2px, 2px); }
+      40% { transform: rotate(-8deg) translate(2px, -2px); }
+      60% { transform: rotate(-8deg) translate(-1px, 1px); }
+      80% { transform: rotate(-8deg) translate(1px, -1px); }
+      100% { transform: rotate(-8deg) translate(0, 0); }
+    }
+  </style>
+</head>
+<body>
+  <button id="accessBtn">Access</button>
+
+  <div id="loadingBar">
+    <div id="progress"></div>
+  </div>
+
+  <div class="hacked" id="hackedMsg">Your System Has Been Hacked</div>
+
+  <script>
+    const btn = document.getElementById('accessBtn');
+    const loadingBar = document.getElementById('loadingBar');
+    const progress = document.getElementById('progress');
+    const hackedMsg = document.getElementById('hackedMsg');
+
+    btn.onclick = () => {
+      btn.style.display = 'none';
+      loadingBar.style.display = 'block';
+
+      let percent = 0;
+      const interval = setInterval(() => {
+        percent++;
+        progress.style.width = percent + '%';
+
+        if (percent >= 100) {
+          clearInterval(interval);
+          loadingBar.style.display = 'none';
+          hackedMsg.style.display = 'block';
+        }
+      }, 600); // 100% * 600ms = 60,000ms (1 minute)
+    };
+  </script>
+</body>
+</html>
